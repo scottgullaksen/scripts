@@ -1,0 +1,53 @@
+#!/bin/bash
+# icons depend on nerdfonts being installed
+bat() {
+	batstat="$(cat /sys/class/power_supply/BAT0/status)"
+	battery="$(cat /sys/class/power_supply/BAT0/capacity)"
+
+	if [[ $battery -le 5 ]]; then
+		if [[ $batstat = 'Unknown' ]] || [[ $batstat = 'Charging' ]]; then
+			batstat=""
+		else
+			batstat=""
+		fi
+	elif [[ $battery -ge 5 ]] && [[ $battery -le 19 ]]; then
+		if [[ $batstat = 'Unknown' ]] || [[ $batstat = 'Charging' ]]; then
+			batstat=""
+		else
+			batstat=""
+		fi
+	elif [[ $battery -ge 20 ]] && [[ $battery -le 39 ]]; then 
+		if [[ $batstat = 'Unknown' ]] || [[ $batstat = 'Charging' ]]; then
+			batstat=""
+		else
+			batstat=""
+		fi
+	elif [[ $battery -ge 40 ]] && [[ $battery -le 59 ]]; then 
+		if [[ $batstat = 'Unknown' ]] || [[ $batstat = 'Charging' ]]; then
+			batstat=""
+		else
+			batstat=""
+		fi
+	elif [[ $battery -ge 60 ]] && [[ $battery -le 79 ]]; then 
+		if [[ $batstat = 'Unknown' ]] || [[ $batstat = 'Charging' ]]; then
+			batstat=""
+		else
+			batstat=""
+		fi
+	elif [[ $battery -ge 80 ]] && [[ $battery -le 95 ]]; then 
+		if [[ $batstat = 'Unknown' ]] || [[ $batstat = 'Charging' ]]; then
+			batstat=""
+		else
+			batstat=""
+		fi
+	elif [[ $battery -ge 96 ]] && [[ $battery -le 100 ]]; then 
+		if [[ $batstat = 'Unknown' ]] || [[ $batstat = 'Charging' ]] || [[ $batstat = 'Full' ]]; then
+			batstat=""
+		else
+			batstat=""
+		fi
+	fi
+	echo "$batstat  $battery%"
+}
+
+echo "^c#f15bb5^$(bat)"

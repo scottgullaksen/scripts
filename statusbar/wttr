@@ -1,0 +1,39 @@
+#!/bin/bash
+
+# todo: bruke yr sitt api istedet?
+curl -s wttr.in/Oslo?format=j1 | sed 30q > /tmp/wttr.txt
+
+weather=$(cat /tmp/wttr.txt | sed 22q | grep value | awk '{print $2 $3}' | sed 's/\"//g')
+
+temp=$(cat /tmp/wttr.txt | grep temp_C | awk '{print $2}' | sed 's/\"//g' | sed 's/,//')
+
+rm /tmp/wttr.txt
+
+nocloud="盛"
+cloud=""
+rain=""
+storm=""
+lotempicon=""
+midtempicon=""
+hitempicon=""
+
+#print weather info
+TEMP() {
+	if [[ $temp -gt 80 ]]; then
+		echo -e "$hitempicon $temp C"
+	elif [[ $temp -ge 50 ]] && [[ $temp -le 79 ]]; then
+		echo -e "$midtempicon $temp C"
+	elif [[ $temp -le 49 ]]; then
+		echo -e "$lotempicon $temp C"
+	fi
+}
+
+WEATHER() {
+	if [[ "$weather" = "Clear" ]] || [[ "$weather" = "Sunny" ]]; then
+		echo -e "$nocloud $weather"
+	else
+		echo -e "$cloud Cloudy"
+	fi
+}
+
+echo $(WEATHER) $(TEMP)
