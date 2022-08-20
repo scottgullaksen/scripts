@@ -1,4 +1,9 @@
 #!/bin/bash
+
+# The script executes neovim configured to work as a pager.
+# This is extremely useful becuase it allows you to scrollbak in history/buffers
+# with the full power of neovim. Plugins are disabled for performance reasons.
+
 set -eu
 
 if [ "$#" -eq 3 ]; then
